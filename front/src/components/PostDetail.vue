@@ -36,7 +36,8 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/mathgame/blog/post/1/`);  //  Замените на ваш URL
+        const postId = this.$route.params.id; 
+        const response = await axios.get(`http://localhost:8000/mathgame/blog/post/${postId}/`);  //  Замените на ваш URL
         this.post = response.data;
       } catch (error) {
         this.error = error.message || 'Failed to load post';
