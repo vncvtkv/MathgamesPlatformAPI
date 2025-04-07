@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Создаем экземпляр axios с базовыми настройками
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/mathgame/blog/', // Ваш базовый URL API
+  baseURL: 'http://localhost:8000/api/blog/', // Ваш базовый URL API
 });
 
 // Добавляем интерсептор для автоматической вставки токена

@@ -50,7 +50,7 @@ export default {
         
         setTimeout(() => {
           this.successMessage = '';
-          this.$router.push('/posts');
+          this.$router.push('/');
         }, 3000);
       } catch (error) {
         this.error = error.response?.data || 'Failed to create post';

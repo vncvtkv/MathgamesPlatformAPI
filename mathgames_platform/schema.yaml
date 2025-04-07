@@ -209,7 +209,7 @@ paths:
           description: ''
       tags:
       - auth
-  /mathgame/blog/post/:
+  /api/blog/post/:
     get:
       operationId: listPosts
       description: ''
@@ -224,7 +224,7 @@ paths:
                   $ref: '#/components/schemas/Post'
           description: ''
       tags:
-      - mathgame
+      - api
     post:
       operationId: createPost
       description: ''
@@ -248,8 +248,8 @@ paths:
                 $ref: '#/components/schemas/Post'
           description: ''
       tags:
-      - mathgame
-  /mathgame/blog/post/{id}/:
+      - api
+  /api/blog/post/{id}/:
     get:
       operationId: retrievePost
       description: ''
@@ -268,7 +268,7 @@ paths:
                 $ref: '#/components/schemas/Post'
           description: ''
       tags:
-      - mathgame
+      - api
     put:
       operationId: updatePost
       description: ''
@@ -298,7 +298,7 @@ paths:
                 $ref: '#/components/schemas/Post'
           description: ''
       tags:
-      - mathgame
+      - api
     patch:
       operationId: partialUpdatePost
       description: ''
@@ -328,7 +328,7 @@ paths:
                 $ref: '#/components/schemas/Post'
           description: ''
       tags:
-      - mathgame
+      - api
     delete:
       operationId: destroyPost
       description: ''
@@ -343,8 +343,8 @@ paths:
         '204':
           description: ''
       tags:
-      - mathgame
-  /mathgame/blog/post/{post_id}/comment/:
+      - api
+  /api/blog/post/{post_id}/comment/:
     get:
       operationId: listComments
       description: ''
@@ -365,7 +365,7 @@ paths:
                   $ref: '#/components/schemas/Comment'
           description: ''
       tags:
-      - mathgame
+      - api
     post:
       operationId: createComment
       description: ''
@@ -395,8 +395,8 @@ paths:
                 $ref: '#/components/schemas/Comment'
           description: ''
       tags:
-      - mathgame
-  /mathgame/blog/post/{post_id}/comment/{id}/:
+      - api
+  /api/blog/post/{post_id}/comment/{id}/:
     get:
       operationId: retrieveComment
       description: ''
@@ -421,7 +421,7 @@ paths:
                 $ref: '#/components/schemas/Comment'
           description: ''
       tags:
-      - mathgame
+      - api
     put:
       operationId: updateComment
       description: ''
@@ -457,7 +457,7 @@ paths:
                 $ref: '#/components/schemas/Comment'
           description: ''
       tags:
-      - mathgame
+      - api
     patch:
       operationId: partialUpdateComment
       description: ''
@@ -493,7 +493,7 @@ paths:
                 $ref: '#/components/schemas/Comment'
           description: ''
       tags:
-      - mathgame
+      - api
     delete:
       operationId: destroyComment
       description: ''
@@ -514,7 +514,7 @@ paths:
         '204':
           description: ''
       tags:
-      - mathgame
+      - api
   /auth/users/activation/:
     post:
       operationId: activationUser

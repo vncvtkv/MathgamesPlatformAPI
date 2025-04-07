@@ -34,7 +34,7 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axios.get('http://localhost:8000/mathgame/blog/post/');
+        const response = await axios.get('http://localhost:8000/api/blog/post/');
         this.posts = response.data;
       } catch (error) {
         this.error = error.message || 'Failed to load posts';

@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class HexapawnConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'hexapawn'
+    name = 'api.hexapawn'

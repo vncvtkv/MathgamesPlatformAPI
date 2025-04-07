@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from pathlib import Path
 
@@ -24,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2123213'
+SECRET_KEY = os.getenv('SECRET_KEY', 'YOUR_DEFAULT_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,8 +47,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'djoser',
-    'blog.apps.BlogConfig',
-    'hexapawn.apps.HexapawnConfig',
+    'api.blog.apps.BlogConfig',
+    'api.hexapawn.apps.HexapawnConfig',
     'core.apps.CoreConfig',
 ]
 
@@ -112,14 +115,12 @@ WSGI_APPLICATION = 'mathgames_platform.wsgi.application'
 
 DATABASES = {
     'default': {
-        # Меняем настройку Django: теперь для работы будет использоваться
-        # бэкенд postgresql
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'django'),
-        'USER': os.getenv('POSTGRES_USER', 'django'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', ''),
-        'PORT': os.getenv('DB_PORT', 5432)
+        'NAME': os.getenv('POSTGRES_DB', 'mathgame_db'),
+        'USER': os.getenv('POSTGRES_USER', 'mathgame_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'StrongPassword123'),
+        'HOST': os.getenv('POSTGRES_HOST', '127.0.0.1'),
+        'PORT': os.getenv('POSTGRES_PORT', 5432),
     }
 }
 

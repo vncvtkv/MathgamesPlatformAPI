@@ -23,6 +23,6 @@ urlpatterns = [
     # JWT-endpoints:
     path('auth/', include('djoser.urls.jwt')),
 
-    path('mathgame/blog/', include('blog.urls')),
-    path('mathgame/hexapawn/', include('hexapawn.urls')),
+    path('api/blog/', include('api.blog.urls')),
+    path('api/hexapawn/', include('api.hexapawn.urls')),
 ]
