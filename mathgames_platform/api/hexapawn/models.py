@@ -52,15 +52,10 @@ class Game(models.Model):
 
 
 class Move(models.Model):
-    game = models.ForeignKey(
-        Game,
-        on_delete=models.CASCADE,
-        related_name='moves'
-    )
-    player = models.ForeignKey(
-        Player,
-        on_delete=models.CASCADE
-    )
-    from_pos = models.CharField(max_length=3)  # Пример: "A2"
-    to_pos = models.CharField(max_length=3)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    from_row = models.IntegerField()  # 0-2
+    from_col = models.IntegerField()  # 0-2
+    to_row = models.IntegerField()    # 0-2
+    to_col = models.IntegerField()    # 0-2
     created_at = models.DateTimeField(auto_now_add=True)
