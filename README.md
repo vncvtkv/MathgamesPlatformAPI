@@ -45,12 +45,17 @@ Mathgames Platform - это платформа для математически
 3.  **Запустите приложение с помощью Docker Compose:**
 
     ```bash
-    docker-compose up --build
+    docker compose up --build
     ```
+
+    docker exec -it mathgames_platform-backend-1 python manage.py migrate
+
 
     *   Эта команда автоматически запустит базу данных PostgreSQL, бэкенд Django и фронтенд Vue.js.
     *   Дождитесь завершения сборки и запуска контейнеров.
     *   Откройте приложение в браузере по адресу `http://localhost:8080` (или по адресу, указанному в логах фронтенда).
+
+    
 
 ## Ручной запуск (без Docker)
 
