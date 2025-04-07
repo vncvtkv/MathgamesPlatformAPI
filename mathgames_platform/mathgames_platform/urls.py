@@ -24,5 +24,5 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
 
     path('api/blog/', include('api.blog.urls')),
-    path('api/hexapawn/', include('api.hexapawn.urls')),
+    path('api/game/', include('api.hexapawn.urls')),
 ]
