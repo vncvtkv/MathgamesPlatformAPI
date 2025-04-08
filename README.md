@@ -42,7 +42,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
     *   Дождитесь завершения сборки и запуска контейнеров.
 
     ```bash
-    docker exec -it mathgamesplatformapi-backend python manage.py migrate
+    docker exec -it mathgamesplatformapi-backend-1 python manage.py migrate
     ```
     *   Выполните миграции.
     *   По адресу `http://localhost:8080` будет доступно небольшое фронтенд-приложение связанное с функционалом блога (или по адресу, указанному в логах фронтенда).
