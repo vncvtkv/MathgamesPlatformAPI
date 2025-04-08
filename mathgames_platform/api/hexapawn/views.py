@@ -40,7 +40,7 @@ class GameListCreateView(generics.ListCreateAPIView):
             # Later will fix this, for now opponent is yourself
             opponent = opponent, _ = Player.objects.get_or_create(
                 name='EVIL player',
-                player_type=Player.HUMAN,
+                player_type=Player.AI,
                 defaults={'user': None}
             )
 
@@ -127,8 +127,12 @@ class MoveView(generics.CreateAPIView):
         )
 
         # AI move(if we playing with ai)
-        if game.opponent.player_type == 'ai' and not winner:
-            HexapawnEngine.make_ai_move(game)
+        if 'EVIL player' in (game.opponent.name, game.current_player.name):
+            game.current_player, game.opponent = game.opponent, game.current_player
+            game.save()
+        else:
+            if game.opponent.player_type == 'ai' and not winner:
+                HexapawnEngine.make_ai_move(game)
 
         return Response({"status": "Ход принят",
                          "board": format_board_to_text(board)})
