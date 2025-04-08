@@ -1,4 +1,4 @@
-# Mathgames Platform
+# MathgamesPlatformAPI
 
 MathgamesPlatformAPI - REST API, реализованный на Django REST Framework (DRF) с использованием PostgreSQL в качестве базы данных. В проекте реализовано два приложения:
 
