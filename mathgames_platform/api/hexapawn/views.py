@@ -38,7 +38,11 @@ class GameListCreateView(generics.ListCreateAPIView):
             )
         else:
             # Later will fix this, for now opponent is yourself
-            opponent = player
+            opponent = opponent, _ = Player.objects.get_or_create(
+                name='EVIL player',
+                player_type=Player.HUMAN,
+                defaults={'user': None}
+            )
 
         # Initialize board
         initial_board = [
