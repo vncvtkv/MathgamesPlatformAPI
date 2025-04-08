@@ -10,7 +10,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
 *   Python 3.12+
 *   Docker
-*   Node.js 18+ (необязательно)
+*   Node.js 18+
 
 ## Быстрый старт (Docker Compose)
 
