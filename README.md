@@ -105,14 +105,15 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
         }
 
         ```
-        POST	`/hexapawn/{game_id}/move/`	**Сделать ход**<br>
+        POST	`/hexapawn/{game_id}/move/`	**Сделать ход** указываем начальные координаты фигуры и конечные<br>
         ```json
         {
-        "title": "title",
-        "text": "text"
+        "from_row": 0,
+        "from_col": 0, 
+        "to_row": 1,
+        "to_col": 0
         }
 
         ```
-        GET	`/hexapawn/{game_id}/`	**Получить состояние игры**
 
 
