@@ -64,7 +64,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
     Базовый функционал доступен на `http://localhost:8000`
 
-1. Аутентификация (Djoser + JWT)
+    * Аутентификация (Djoser + JWT)
 
         Базовый URL: http://localhost:8000/auth/
 
@@ -86,7 +86,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
     ---
 
-2. Блог (CRUD операции)
+    * Блог (CRUD операции)
 
         Базовый URL: http://localhost:8000/api/blog/
 
@@ -105,7 +105,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
         **POST**	/post/{id}/comment/	Добавить комментарий
 
 
-3. *Игра Hexapawn*
+    * Игра Hexapawn
 
         Базовый URL: http://localhost:8000/api/game/
 
