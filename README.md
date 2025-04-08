@@ -1,12 +1,16 @@
 # Mathgames Platform
 
-Mathgames Platform - это платформа для математических игр, разработанная с использованием Django (бэкенд) и Vue.js (фронтенд).
+MathgamesPlatformAPI - REST API, реализованный на Django REST Framework (DRF) с использованием PostgreSQL в качестве базы данных. В проекте реализовано два приложения:
+
+*   Приложение-блог с аутентификацией пользователей через JWT-токен, позволяющее публиковать посты и комментарии. Для блога реализован небольшой фронтенд на Vue.js.
+*   Реализация игры Hexapawn - пешечные шахматы Мартина Гарднера.
+ 
 
 ## Необходимые условия
 
 *   Python 3.12+
-*   Node.js 18+
 *   Docker
+*   Node.js 18+ (необязательно)
 
 ## Быстрый старт (Docker Compose)
 
@@ -15,7 +19,7 @@ Mathgames Platform - это платформа для математически
 1.  **Клонируйте репозиторий:**
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/vncvtkv/MathgamesPlatformAPI.git
     cd mathgames_platform
     ```
 
@@ -47,115 +51,66 @@ Mathgames Platform - это платформа для математически
     ```bash
     docker compose up --build
     ```
-
-    docker exec -it mathgames_platform-backend-1 python manage.py migrate
-
-
     *   Эта команда автоматически запустит базу данных PostgreSQL, бэкенд Django и фронтенд Vue.js.
     *   Дождитесь завершения сборки и запуска контейнеров.
-    *   Откройте приложение в браузере по адресу `http://localhost:8080` (или по адресу, указанному в логах фронтенда).
-
-    
-
-## Ручной запуск (без Docker)
-
-Если вы предпочитаете запустить приложение вручную, выполните следующие шаги:
-
-### 1. Запуск базы данных PostgreSQL
-
-docker run --name my-postgres \
-  -e POSTGRES_USER=mathgame_user\
-  -e POSTGRES_PASSWORD=StrongPassword123 \
-  -e POSTGRES_DB=mathgame_db   \
-  -p 5432:5432 \
-  -d postgres:13.10
-
-
-### 2. Настройка и запуск бэкенда (Django)
-
-1.  Перейдите в директорию проекта (если вы еще не там).
-
-2.  Создайте и активируйте виртуальное окружение:
 
     ```bash
-    python3 -m venv venv
-    source venv/bin/activate   # Linux/macOS
-    venv\Scripts\activate  # Windows
+    docker exec -it mathgames_platform-backend-1 python manage.py migrate
     ```
+    *   Выполните миграции.
+    *   По адресу `http://localhost:8080` будет доступно небольшое фронтенд-приложение связанное с функционалом блога (или по адресу, указанному в логах фронтенда).
 
-3.  Установите зависимости:
+4.  **API Endpoints и примеры запросов:**
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+Базовый функционал доступен на `http://localhost:8080`
 
-4.  Примените миграции:
+### 1. Аутентификация (Djoser + JWT)
 
-    ```bash
-    python manage.py migrate
-    ```
+Базовый URL: http://localhost:8000/auth/
 
-5.  Запустите сервер разработки:
+**POST** `/users/ - Зарегистрировать нового пользователя
+**POST**  /auth/jwt/create/ - Получить JWT-token
 
-    ```bash
-    python manage.py runserver
-    ```
 
-    *   Убедитесь, что сервер Django запустился без ошибок и слушает на порту 8000 (или другом настроенном порту).
+#### Тело запроса и там и там:
 
-### 3. Настройка и запуск фронтенда (Vue.js)
+```json
+{
+  "username": "username",
+  "password": "password"
+}
 
-1.  Перейдите в директорию `front`:
+```
 
-    ```bash
-    cd front
-    ```
 
-2.  Установите зависимости:
 
-    ```bash
-    npm install
-    ```
+---
 
-    или
+### 2. Блог (CRUD операции)
 
-    ```bash
-    yarn install
-    ```
+Базовый URL: http://localhost:8000/api/blog/
 
-3.  Запустите сервер разработки:
+**POST**	/post/	Создать новый пост (требуется auth)
+#### Тело запроса и там и там:
 
-    ```bash
-    npm run serve
-    ```
+```json
+{
+  "title": "title",
+  "text": "text"
+}
 
-    *   Убедитесь, что сервер Vue.js запустился без ошибок и слушает на порту 8080 (или другом настроенном порту).
+```
 
-### 4. Доступ к приложению
+**GET**	   /post/{id}/	Получить конкретный пост
+**POST**	/post/{id}/comment/	Добавить комментарий
 
-Откройте браузер и перейдите по адресу `http://localhost:8080` (или адресу, указанному в логах фронтенда).
 
-## Настройка переменных окружения
+### 3. Игра Hexapawn
 
-В файле `.env` определены следующие переменные:
+Базовый URL: http://localhost:8000/api/game/
 
-*   `POSTGRES_DB`: Имя базы данных PostgreSQL.
-*   `POSTGRES_USER`: Имя пользователя PostgreSQL.
-*   `POSTGRES_PASSWORD`: Пароль пользователя PostgreSQL.
-*   `POSTGRES_HOST`: Хост PostgreSQL (для Docker используйте 127.0.0.1).
-*   `POSTGRES_PORT`: Порт PostgreSQL.
-*   `SECRET_KEY`: Секретный ключ Django.  **Не используйте секретный ключ по умолчанию в production!**
-*   `DEBUG`: Режим отладки Django (установите `False` в production).
+**POST**	/hexapawn/	Создать новую игру
+**POST**	/hexapawn/{game_id}/move/	Сделать ход
+**GET**	/hexapawn/{game_id}/	Получить состояние игры
 
-## Решение проблем
 
-*   **Ошибка подключения к базе данных:** Убедитесь, что PostgreSQL запущен и доступен, а также что переменные окружения, связанные с базой данных, настроены правильно.
-*   **Ошибка при установке зависимостей:** Проверьте, что у вас установлены необходимые версии Python и Node.js.
-*   **CORS Error:** Убедитесь, что CORS настроен правильно в вашем Django-проекте (см. документацию django-cors-headers).
-
-## Дополнительная информация
-
-*   [Django Documentation](https://docs.djangoproject.com/en/4.2/)
-*   [Vue.js Documentation](https://vuejs.org/)
-*   [Docker Documentation](https://docs.docker.com/)
-*   [Docker Compose Documentation](https://docs.docker.com/compose/)
