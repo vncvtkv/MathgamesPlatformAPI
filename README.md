@@ -96,11 +96,12 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
         Базовый URL: http://localhost:8000/api/game/
 
-        POST	`/hexapawn/`	**Создать новую игру**<br>
+        POST	`/hexapawn/`	**Создать новую игру**
+        * Если передать пустой запрос - будет игра и AI
+        * Если "opponent_type": "human", то с игроком.
         ```json
         {
-        "title": "title",
-        "text": "text"
+        "opponent_type": "human"
         }
 
         ```
