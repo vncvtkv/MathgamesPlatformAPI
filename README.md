@@ -55,8 +55,8 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
         Базовый URL: http://localhost:8000/auth/
 
-        **POST** `/users/ - Зарегистрировать нового пользователя<br>
-        **POST**  /auth/jwt/create/ - Получить JWT-token
+        **POST** `/users/` - Зарегистрировать нового пользователя<br>
+        **POST**  `/auth/jwt/create/` - Получить JWT-token
 
 
         #### Тело запроса при регистрации и получении токена:
@@ -75,9 +75,9 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
     * **Блог (CRUD операции)**
 
-        Базовый URL: http://localhost:8000/api/blog/
+        Базовый URL: `http://localhost:8000/api/blog/`
 
-        POST	/post/	**Создать новый пост (требуется auth)**
+        POST	`/post/`	**Создать новый пост (требуется auth)**
         #### Тело запроса:
 
         ```json
@@ -88,15 +88,15 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
         ```
 
-        GET	   /post/{id}/	**Получить конкретный пост**<br>
-        POST	/post/{id}/comment/	**Добавить комментарий**
+        GET `/post/{id}/`	**Получить конкретный пост**<br>
+        POST	`/post/{id}/comment/`	**Добавить комментарий**
 
 
     * **Игра Hexapawn**
 
         Базовый URL: http://localhost:8000/api/game/
 
-        POST	/hexapawn/	**Создать новую игру**<br>
+        POST	`/hexapawn/`	**Создать новую игру**<br>
         ```json
         {
         "title": "title",
@@ -104,7 +104,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
         }
 
         ```
-        POST	/hexapawn/{game_id}/move/	**Сделать ход**<br>
+        POST	`/hexapawn/{game_id}/move/`	**Сделать ход**<br>
         ```json
         {
         "title": "title",
@@ -112,6 +112,6 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
         }
 
         ```
-        GET	/hexapawn/{game_id}/	**Получить состояние игры**
+        GET	`/hexapawn/{game_id}/`	**Получить состояние игры**
 
 
