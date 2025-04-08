@@ -68,7 +68,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
         Базовый URL: http://localhost:8000/auth/
 
-        **POST** `/users/ - Зарегистрировать нового пользователя
+        **POST** `/users/ - Зарегистрировать нового пользователя<br>
         **POST**  /auth/jwt/create/ - Получить JWT-token
 
 
@@ -101,7 +101,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
         ```
 
-        **GET**	   /post/{id}/	Получить конкретный пост
+        **GET**	   /post/{id}/	Получить конкретный пост<br>
         **POST**	/post/{id}/comment/	Добавить комментарий
 
 
@@ -109,8 +109,8 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
         Базовый URL: http://localhost:8000/api/game/
 
-        **POST**	/hexapawn/	Создать новую игру
-        **POST**	/hexapawn/{game_id}/move/	Сделать ход
+        **POST**	/hexapawn/	Создать новую игру<br>
+        **POST**	/hexapawn/{game_id}/move/	Сделать ход<br>
         **GET**	/hexapawn/{game_id}/	Получить состояние игры
 
 
