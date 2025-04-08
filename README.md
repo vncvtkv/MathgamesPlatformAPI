@@ -16,7 +16,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
 Рекомендуемый способ запуска проекта - с использованием Docker Compose. Это обеспечит консистентность окружения и упростит процесс установки.
 
-1.  **Клонируйте репозиторий:**
+1.  **Клонируйте репозиторий: **
 
     ```bash
     git clone https://github.com/vncvtkv/MathgamesPlatformAPI.git
