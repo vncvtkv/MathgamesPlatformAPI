@@ -2,9 +2,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import Game, Player, Move
 from .serializers import GameSerializer, MoveSerializer
-from rest_framework import serializers
-import random
 from .game_logic import HexapawnEngine, format_board_to_text
+
 
 # Create your views here.
 
@@ -14,12 +13,14 @@ class GameListCreateView(generics.ListCreateAPIView):
     serializer_class = GameSerializer
 
     def perform_create(self, serializer):
+        """This method need to create new Game"""
+
         user = self.request.user
-        
-        # Определяем тип оппонента
-        opponent_type = serializer.validated_data.pop('opponent_type', 'ai') 
-        
-        # Создаем или получаем игрока для текущего пользователя
+
+        # Define type of opponent
+        opponent_type = serializer.validated_data.pop('opponent_type', 'ai')
+
+        # Create player
         player, _ = Player.objects.get_or_create(
             user=user,
             defaults={
@@ -27,8 +28,8 @@ class GameListCreateView(generics.ListCreateAPIView):
                 'name': user.username
             }
         )
-        
-        # Создаем или получаем AI-игрока
+
+        # Create human opponent or AI - opponent
         if opponent_type == 'ai':
             opponent, _ = Player.objects.get_or_create(
                 name='Hexapawn AI',
@@ -36,17 +37,17 @@ class GameListCreateView(generics.ListCreateAPIView):
                 defaults={'user': None}
             )
         else:
-            # Для игры против человека можно добавить логику выбора другого игрока
-            opponent = player  # Временная заглушка
+            # Later will fix this, for now opponent is yourself
+            opponent = player
 
-        # Инициализируем доску
+        # Initialize board
         initial_board = [
             ['W', 'W', 'W'],
             ['.', '.', '.'],
             ['B', 'B', 'B']
         ]
 
-        # Сохраняем игру через serializer
+        # Create Game object using serializer
         serializer.save(
             created_by=user,
             current_player=player,
@@ -60,44 +61,58 @@ class MoveView(generics.CreateAPIView):
     serializer_class = MoveSerializer
 
     def post(self, request, *args, **kwargs):
+        """In post method we update game and make move"""
+
         game = Game.objects.get(pk=self.kwargs['game_id'])
         player = game.current_player
 
         if game.winner:
-            return Response({"error": "Игра уже завершена"}, status=400)
-        
+            return Response({"error": "The game is finished"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
-            return Response(serializer.errors, status=400)
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
-        # Проверяем ход (здесь должна быть валидация правил Hexapawn)
         from_row = serializer.validated_data['from_row']
         from_col = serializer.validated_data['from_col']
         to_row = serializer.validated_data['to_row']
         to_col = serializer.validated_data['to_col']
 
-        if not all(0 <= coord <= 2 for coord in [from_row, from_col, to_row, to_col]):
-            return Response({"error": "Координаты должны быть от 0 до 2"}, status=400)
-        
-        error = HexapawnEngine.validate_move(game.board, from_row, from_col, to_row, to_col, player)
+        if not all(0 <= coord <= 2
+                   for coord in [from_row, from_col, to_row, to_col]):
+            return Response({"error": "Координаты должны быть от 0 до 2"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        error = HexapawnEngine.validate_move(
+            game.board,
+            from_row,
+            from_col,
+            to_row,
+            to_col,
+            player
+        )
         if error:
-            return Response({"error": error}, status=400)
-        
-        # Обновляем доску
+            return Response({"error": error},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        # Refresh board
         board = game.board
         piece = board[from_row][from_col]
         board[from_row][from_col] = '.'
         board[to_row][to_col] = piece
         game.board = board
 
-        # Проверяем победу
+        # Check for win
         winner = HexapawnEngine.check_winner(board, game.opponent)
         if winner:
             game.winner = player
             game.save()
-            return Response({"status": f"Победил {game.winner.name}!", "board": format_board_to_text(board)})
-    
-        # Сохраняем ход
+            return Response({"status": f"Победил {game.winner.name}!",
+                             "board": format_board_to_text(board)})
+
+        # Save move
         Move.objects.create(
             game=game,
             player=player,
@@ -107,8 +122,9 @@ class MoveView(generics.CreateAPIView):
             to_col=to_col
         )
 
-        # Ход ИИ (если нужно)
+        # AI move(if we playing with ai)
         if game.opponent.player_type == 'ai' and not winner:
             HexapawnEngine.make_ai_move(game)
 
-        return Response({"status": "Ход принят", "board": format_board_to_text(board)})
+        return Response({"status": "Ход принят",
+                         "board": format_board_to_text(board)})

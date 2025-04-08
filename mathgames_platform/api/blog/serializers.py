@@ -10,12 +10,6 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    """Serializes Post data for API responses.
- 
-    Includes:
-    - Read-only `author` field (username)
-    - Nested comments and tags
-    """
     author = serializers.StringRelatedField(read_only=True)
     tag = TagSerializer(many=True, required=False)
 

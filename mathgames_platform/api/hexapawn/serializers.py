@@ -17,15 +17,22 @@ class GameSerializer(serializers.ModelSerializer):
     current_player = serializers.StringRelatedField(read_only=True)
     opponent = serializers.StringRelatedField(read_only=True)
     winner = serializers.StringRelatedField(read_only=True)
-    
+
     class Meta:
         model = Game
-        fields = ['id', 'opponent_type', 'current_player', 'opponent', 'board', 'winner'] 
-        
+        fields = (
+            'id',
+            'opponent_type',
+            'current_player',
+            'opponent',
+            'board',
+            'winner',
+        )
+
 
 class MoveSerializer(serializers.ModelSerializer):
     player = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Move
-        fields = ['id', 'player', 'from_row', 'from_col', 'to_row', 'to_col'] 
+        fields = ('id', 'player', 'from_row', 'from_col', 'to_row', 'to_col',)
