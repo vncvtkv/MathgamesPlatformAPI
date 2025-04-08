@@ -62,55 +62,55 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
 4.  **API Endpoints и примеры запросов:**
 
-Базовый функционал доступен на `http://localhost:8080`
+    Базовый функционал доступен на `http://localhost:8080`
 
-*1. Аутентификация (Djoser + JWT)
+    1. Аутентификация (Djoser + JWT)
 
-Базовый URL: http://localhost:8000/auth/
+        Базовый URL: http://localhost:8000/auth/
 
-* **POST** `/users/ - Зарегистрировать нового пользователя
-* **POST**  /auth/jwt/create/ - Получить JWT-token
-
-
-#### Тело запроса при регистрации и получении токена:
-
-```json
-{
-  "username": "username",
-  "password": "password"
-}
-
-```
+        **POST** `/users/ - Зарегистрировать нового пользователя
+        **POST**  /auth/jwt/create/ - Получить JWT-token
 
 
+        #### Тело запроса при регистрации и получении токена:
 
----
+        ```json
+        {
+        "username": "username",
+        "password": "password"
+        }
 
-* 2. Блог (CRUD операции)
-
-Базовый URL: http://localhost:8000/api/blog/
-
-* **POST**	/post/	Создать новый пост (требуется auth)
-#### Тело запроса:
-
-```json
-{
-  "title": "title",
-  "text": "text"
-}
-
-```
-
-* **GET**	   /post/{id}/	Получить конкретный пост
-* **POST**	/post/{id}/comment/	Добавить комментарий
+        ```
 
 
- * 3. *Игра Hexapawn*
 
-Базовый URL: http://localhost:8000/api/game/
+    ---
 
-* **POST**	/hexapawn/	Создать новую игру
-* **POST**	/hexapawn/{game_id}/move/	Сделать ход
-* **GET**	/hexapawn/{game_id}/	Получить состояние игры
+    2. Блог (CRUD операции)
+
+        Базовый URL: http://localhost:8000/api/blog/
+
+        **POST**	/post/	Создать новый пост (требуется auth)
+        #### Тело запроса:
+
+        ```json
+        {
+        "title": "title",
+        "text": "text"
+        }
+
+        ```
+
+        **GET**	   /post/{id}/	Получить конкретный пост
+        **POST**	/post/{id}/comment/	Добавить комментарий
+
+
+    3. *Игра Hexapawn*
+
+        Базовый URL: http://localhost:8000/api/game/
+
+        **POST**	/hexapawn/	Создать новую игру
+        **POST**	/hexapawn/{game_id}/move/	Сделать ход
+        **GET**	/hexapawn/{game_id}/	Получить состояние игры
 
 
