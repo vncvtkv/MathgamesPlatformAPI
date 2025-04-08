@@ -20,7 +20,7 @@ MathgamesPlatformAPI - REST API, реализованный на Django REST Fra
 
     ```bash
     git clone https://github.com/vncvtkv/MathgamesPlatformAPI.git
-    cd mathgames_platform
+    cd MathgamesPlatformAPI
     ```
 
 2.  **Настройте переменные окружения:**
